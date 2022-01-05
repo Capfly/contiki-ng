@@ -17,10 +17,12 @@ include ../../wolfMQTT/Makefile.wolfMQTT
 	@mkdir -p $(OBJECTDIR)/wolfssl/wolfcrypt/src
 	@mkdir -p $(OBJECTDIR)/wolfMQTT/src
 
+TARGET_LIBFILES += -lm
+PROJECT_SOURCEFILES += $(wolfssl_src)
+PROJECT_SOURCEFILES += $(wolfMQTT_src)
 #TODO should use PROJECT_SOURCEFILES but can't because of unresolved math dependencies againt contiki
-#PROJECT_SOURCEFILES += $(wolfssl_src)
-CONTIKI_SOURCEFILES += $(wolfssl_src)
-CONTIKI_SOURCEFILES += $(wolfMQTT_src)
+#CONTIKI_SOURCEFILES += $(wolfssl_src)
+#CONTIKI_SOURCEFILES += $(wolfMQTT_src)
 
 #PLATFORMS_ONLY = cc26x0-cc13x0 cc2538dk openmote zoul native simplelink cooja
 
