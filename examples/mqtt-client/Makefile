@@ -11,10 +11,16 @@ MODULES += $(CONTIKI_NG_APP_LAYER_DIR)/mqtt
 MODULES_REL += arch/platform/$(TARGET)
 
 include ../../wolfssl/Makefile.wolfssl
+include ../../wolfMQTT/Makefile.wolfMQTT
+%.d:
+	@mkdir -p $(OBJECTDIR)/wolfssl/src
+	@mkdir -p $(OBJECTDIR)/wolfssl/wolfcrypt/src
+	@mkdir -p $(OBJECTDIR)/wolfMQTT/src
 
 #TODO should use PROJECT_SOURCEFILES but can't because of unresolved math dependencies againt contiki
 #PROJECT_SOURCEFILES += $(wolfssl_src)
 CONTIKI_SOURCEFILES += $(wolfssl_src)
+CONTIKI_SOURCEFILES += $(wolfMQTT_src)
 
 #PLATFORMS_ONLY = cc26x0-cc13x0 cc2538dk openmote zoul native simplelink cooja
 

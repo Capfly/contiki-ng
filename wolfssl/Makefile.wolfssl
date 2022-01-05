@@ -79,6 +79,6 @@ wolfssl_src += \
 vpath %c ../../wolfssl
 #vpath %c ../../wolfssl/$(WOLFSSL_ROOT)/wolfcrypt/src
 
-%.d:
-	@mkdir -p $(OBJECTDIR)/wolfssl/src
-	@mkdir -p $(OBJECTDIR)/wolfssl/wolfcrypt/src
+#%.d:
+#	@mkdir -p $(OBJECTDIR)/wolfssl/src
+#	@mkdir -p $(OBJECTDIR)/wolfssl/wolfcrypt/src

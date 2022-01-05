@@ -40,3 +40,6 @@
 [submodule "wolfssl/wolfssl"]
 	path = wolfssl/wolfssl
 	url = https://github.com/Capfly/wolfssl.git
+[submodule "wolfMQTT/wolfMQTT"]
+	path = wolfMQTT/wolfMQTT
+	url = https://github.com/Capfly/wolfMQTT.git

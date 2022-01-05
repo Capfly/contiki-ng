@@ -1,0 +1,20 @@
+#wolfssl_src = wolfssl.c
+
+WOLFMQTT_ROOT?=wolfMQTT
+SOURCEDIRS+=$(WOLFMQTT_ROOT)
+CFLAGS+=-I../../wolfMQTT/$(WOLFMQTT_ROOT)
+$(info WOLFMQTT: $(WOLFMQTT_ROOT))
+$(info SOURCEDIRS: $(SOURCEDIRS))
+$(info CFLAGS: $(CFLAGS))
+#source common to all targets
+
+
+wolfMQTT_src += \
+    $(WOLFMQTT_ROOT)/src/mqtt_client.c \
+    $(WOLFMQTT_ROOT)/src/mqtt_packet.c \
+	$(WOLFMQTT_ROOT)/src/mqtt_socket.c 
+
+vpath %c ../../wolfMQTT
+
+#%.d:
+#	@mkdir -p $(OBJECTDIR)/wolfMQTT/src
