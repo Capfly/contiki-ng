@@ -187,7 +187,7 @@
  * Debug configuration, this is similar but not exactly like the Debugging
  * System discussion at https://github.com/contiki-os/contiki/wiki.
  */
-#define DEBUG_MQTT 0
+#define DEBUG_MQTT 1
 
 #if DEBUG_MQTT == 1
 #define DBG(...) printf(__VA_ARGS__)
@@ -435,6 +435,9 @@ struct mqtt_in_packet {
 
   /* Helper variables needed to decode the remaining_length */
   uint8_t has_remaining_length;
+
+  
+  uint8_t has_packet_id; /* the packet_id has been decoded */
 
   /* Not the same as payload in the MQTT sense, it also contains the variable
    * header.

@@ -1331,6 +1331,15 @@ parse_vhdr(struct mqtt_connection *conn)
     break;
   }
 
+  if(!conn->in_packet.has_packet_id){
+    // we need to check if its qos > 0
+    if((conn->in_packet.fhdr & 0x06) > 0 ){
+      // we have a message_id
+      conn->in_packet.has_packet_id=1;
+      conn->in_packet.payload_start += 2;
+    } 
+  }
+
   if(!conn->in_packet.has_props) {
     mqtt_prop_decode_input_props(conn);
   }
@@ -1512,15 +1521,24 @@ tcp_input(struct tcp_socket *s,
     conn->in_publish_msg.payload_left = 0;
 
     DBG("MQTT - First chunk? %i\n", conn->in_publish_msg.first_chunk);
-#if MQTT_5
+
+
     if(conn->in_publish_msg.first_chunk) {
+
+	if(conn->in_packet.has_packet_id) {
+	      conn->in_publish_msg.payload_chunk_length -= 2;
+      	      /* Payload chunk should point past the MQTT properties and to the payload itself */
+     	      conn->in_publish_msg.payload_chunk += 2;
+	}
+
+#if MQTT_5
       conn->in_publish_msg.payload_chunk_length -= conn->in_packet.properties_len +
         conn->in_packet.properties_enc_len;
       /* Payload chunk should point past the MQTT properties and to the payload itself */
       conn->in_publish_msg.payload_chunk += conn->in_packet.properties_len +
         conn->in_packet.properties_enc_len;
-    }
 #endif
+    }
     (void)handle_publish(conn);
     break;
   case MQTT_FHDR_MSG_TYPE_PUBACK:
